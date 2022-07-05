@@ -16,7 +16,7 @@ __version__ = "1.0.0"
 __maintainer__ = "James Dooley"
 __status__ = "Production"
 
-__all__ = ['main']
+__all__ = ['app']
 
 from pprint import pprint
 
@@ -32,14 +32,14 @@ pass_report_params = click.make_pass_decorator(WeatherReportParams)
 
 
 @click.group
-def main() -> None:
+def app() -> None:
     """
     This app produces current and daily weather reports for a given city.
     """
     pass
 
 
-@main.group(help='Configure the application')
+@app.group(help='Configure the application')
 def setup() -> None:
     """
     This command configures the application
@@ -66,7 +66,7 @@ def key(value: str) -> None:
     print('Set API key')
 
 
-@main.group()
+@app.group()
 @click.pass_context
 @click.option('--city', '-c', type=str, required=True, prompt='Enter city name ', help='The city to report on')
 @click.option('--country', '-cty', type=str, required=True, prompt='Entry country name ',

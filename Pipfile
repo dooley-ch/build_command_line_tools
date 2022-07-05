@@ -10,6 +10,7 @@ requests = "*"
 yaspin = "*"
 attrs = "*"
 pendulum = "*"
+loguru = "*"
 
 [dev-packages]
 pytest = "*"
