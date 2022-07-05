@@ -41,6 +41,9 @@ def main() -> None:
 
 @main.group(help='Configure the application')
 def setup() -> None:
+    """
+    This command configures the application
+    """
     pass
 
 
