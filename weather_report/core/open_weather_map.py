@@ -89,12 +89,11 @@ def get_weather(location: Location, key: str, unit_of_measure: UnitOfMeasure = U
         current_data = data['current']
         daily_data = data['daily']
 
-        current = CurrentWeather(**current_data)
+        current = CurrentWeather.parse(current_data)
 
         weather = WeatherData(location.city, location.state, location.country, lat, lon, timezone, current)
 
         for item in daily_data:
-            daily = DailyWeather(**item)
-            weather.daily_weather.append(daily)
+            weather.daily_weather.append(DailyWeather.parse(item))
 
         return weather

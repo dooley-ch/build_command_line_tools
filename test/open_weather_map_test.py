@@ -63,6 +63,6 @@ class TestOpenWeatherMapWeather:
         weather = owm.get_weather(item, TestOpenWeatherMapWeather.API_KEY)
         assert weather
 
-        assert weather.city == 'Balla'
+        assert weather.city == 'Mörel'
         assert weather.current_weather
         assert len(weather.daily_weather) == 8

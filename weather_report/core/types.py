@@ -7,6 +7,7 @@
 #  04-07-2022: Initial version
 #
 # *******************************************************************************************
+from __future__ import annotations
 
 __author__ = "James Dooley"
 __contact__ = "james@developernotes.org"
@@ -104,17 +105,31 @@ class CurrentWeather:
     sunset: pendulum.DateTime = attrs.field(converter=_from_timestamp_to_date)
     pressure: int
     humidity: int
-    dew_point: int
-    uvi: float
     clouds: int
     visibility: int
     wind_speed: float
     wind_deg: float
-    wind_gust: float
     weather: list[Weather] = attrs.Factory(dict)
     temp: Temperature = attrs.Factory(dict)
     feels_like: FeelsLike = attrs.Factory(dict)
 
+    @classmethod
+    def parse(cls, data: dict[str, typing.Any]) -> CurrentWeather:
+        dt = data['dt']
+        sunrise = data['sunrise']
+        sunset = data['sunset']
+        pressure = data['pressure']
+        humidity = data['humidity']
+        clouds = data['clouds']
+        visibility = data['visibility']
+        wind_speed = data['wind_speed']
+        wind_deg = data['wind_deg']
+        weather = data['weather']
+        temp = data['temp']
+        feels_like = data['feels_like']
+
+        return CurrentWeather(dt, sunrise, sunset, pressure, humidity, clouds, visibility,
+                              wind_speed, wind_deg, weather, temp, feels_like)
 
 @attrs.frozen
 class DailyWeather:
@@ -125,21 +140,31 @@ class DailyWeather:
     dt: pendulum.DateTime = attrs.field(converter=_from_timestamp_to_date)
     sunrise: pendulum.DateTime = attrs.field(converter=_from_timestamp_to_date)
     sunset: pendulum.DateTime = attrs.field(converter=_from_timestamp_to_date)
-    moonrise: pendulum.DateTime = attrs.field(converter=_from_timestamp_to_date)
-    moonset: pendulum.DateTime = attrs.field(converter=_from_timestamp_to_date)
-    moon_phase: int
     pressure: int
     humidity: int
-    dew_point: int
     wind_speed: float
     wind_deg: float
-    wind_gust: float
     clouds: int
-    pop: float
-    uvi: float
     weather: list[Weather] = attrs.Factory(dict)
     temp: Temperature = attrs.Factory(dict)
     feels_like: FeelsLike = attrs.Factory(dict)
+
+    @classmethod
+    def parse(cls, data: dict[str, typing.Any]) -> DailyWeather:
+        dt = data['dt']
+        sunrise = data['sunrise']
+        sunset = data['sunset']
+        pressure = data['pressure']
+        humidity = data['humidity']
+        wind_speed = data['wind_speed']
+        wind_deg = data['wind_deg']
+        clouds = data['clouds']
+        weather = data['weather']
+        temp = data['temp']
+        feels_like = data['feels_like']
+
+        return DailyWeather(dt, sunrise, sunset, pressure, humidity, wind_speed, wind_deg, clouds,
+                            weather, temp, feels_like)
 
 
 @attrs.frozen
