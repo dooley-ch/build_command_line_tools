@@ -14,13 +14,13 @@ import os
 import atexit
 from pathlib import Path
 import core.commands as cmds
-import core.log_config as log_cfg
+import core.utils as utils
 
 
 # noinspection PyBroadException
 def exit_routine() -> None:
     try:
-        log_cfg.log_end()
+        utils.log_end()
     except:
         # We swallow any errors on exit
         pass
@@ -38,8 +38,8 @@ def main():
     atexit.register(exit_routine)
 
     # Configure logging
-    log_cfg.configure_logging('command_line_tools', __file__)
-    log_cfg.log_start()
+    utils.configure_logging('command_line_tools', __file__)
+    utils.log_start()
 
     # Process commands
     cmds.app()

@@ -1,5 +1,5 @@
 # *******************************************************************************************
-#  File:  log_config.py
+#  File:  _config.py
 #
 #  Created: 05-07-2022
 #
@@ -20,7 +20,7 @@ __all__ = ['configure_logging', 'log_start', 'log_end', 'log_activity']
 
 from pathlib import Path
 from loguru import logger
-from .utils import find_logs_folder
+from weather_report.core.utils import find_logs_folder
 
 
 class ActivityFileFormatter:
