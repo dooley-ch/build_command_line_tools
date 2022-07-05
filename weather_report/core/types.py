@@ -17,7 +17,8 @@ __version__ = "1.0.0"
 __maintainer__ = "James Dooley"
 __status__ = "Production"
 
-__all__ = ['UnitOfMeasure', 'Location', 'Locations', 'WeatherData', 'Weather', 'CurrentWeather', 'DailyWeather']
+__all__ = ['UnitOfMeasure', 'Location', 'Locations', 'WeatherData', 'Weather', 'CurrentWeather', 'DailyWeather',
+           'WeatherReportParams']
 
 import enum
 import typing
@@ -40,6 +41,20 @@ class UnitOfMeasure(str, enum.Enum):
     Standard = 'standard'
     Metric = 'metric'
     Imperial = 'imperial'
+
+
+@attrs.frozen
+class WeatherReportParams:
+    """
+    This class represents the parameters needed to generate a weather report
+    """
+    city: str
+    state: str
+    country: str
+    longitude: float
+    latitude: float
+    unit_of_measure: UnitOfMeasure
+    api_key: str
 
 
 class Location(typing.NamedTuple):
@@ -130,6 +145,7 @@ class CurrentWeather:
 
         return CurrentWeather(dt, sunrise, sunset, pressure, humidity, clouds, visibility,
                               wind_speed, wind_deg, weather, temp, feels_like)
+
 
 @attrs.frozen
 class DailyWeather:
