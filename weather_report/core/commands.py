@@ -31,7 +31,13 @@ _us_states = ["AL", "AK", "AZ", "AR", "CO", "CT", "DE", "DC", "FL", "GA", "HI", 
 pass_report_params = click.make_pass_decorator(WeatherReportParams)
 
 
+def _abort_if_false(ctx, param, value):
+    if not value:
+        ctx.abort()
+
+
 @click.group
+@click.version_option(__version__)
 def app() -> None:
     """
     This app produces current and daily weather reports for a given city.
@@ -48,6 +54,8 @@ def setup() -> None:
 
 
 @setup.command
+@click.option('--yes', is_flag=True, callback=_abort_if_false, expose_value=False,
+              prompt='Are you sure you want to initialize the application?')
 def init() -> None:
     """
     Initializes the app database with the country ISO codes
